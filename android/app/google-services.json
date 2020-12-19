@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339253778213",
+    "project_id": "vaccine-distribution-sys-2f068",
+    "storage_bucket": "vaccine-distribution-sys-2f068.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339253778213:android:5d2b3d6b8b8f6cf0022ccc",
+        "android_client_info": {
+          "package_name": "com.MidhuSoosewala.vds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339253778213-n1imjf0931sohavspcm6rf3er5qmr4ie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALi5ytUqwFumTeuTPIaCdTAxkB8EWU35M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339253778213-n1imjf0931sohavspcm6rf3er5qmr4ie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
