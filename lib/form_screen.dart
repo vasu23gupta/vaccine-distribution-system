@@ -31,7 +31,8 @@ class _FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: Text('COVID 19 RECORD'),
+        backgroundColor: Colors.green,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -46,7 +47,10 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Name'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Name",
+                  ),
                   validator: (val) => val.isEmpty ? 'Enter a name' : null,
                   onChanged: (val) {
                     setState(() => name = val);
@@ -58,6 +62,8 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 DropdownButton(
                   hint: Text('Gender'),
+                  dropdownColor: Colors.white,
+                  elevation: 1,
                   value: gender,
                   onChanged: (value) {
                     setState(
@@ -81,7 +87,10 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: textInputDecoration.copyWith(hintText: 'Age'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Age",
+                  ),
                   validator: (val) => val.isEmpty ? 'Enter your age' : null,
                   onChanged: (val) {
                     setState(() => age = int.parse(val));
@@ -93,7 +102,10 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: textInputDecoration.copyWith(hintText: 'Pincode'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Pincode",
+                  ),
                   validator: (val) => val.isEmpty ? 'Enter pincode' : null,
                   onChanged: (val) {
                     setState(() => pincode = int.parse(val));
@@ -104,7 +116,10 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'E-mail'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "E-mail",
+                  ),
                   validator: (val) =>
                       val.isEmpty ? 'Enter a valid email' : null,
                   onChanged: (val) {
@@ -117,7 +132,10 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: textInputDecoration.copyWith(hintText: 'Phone'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Phone",
+                  ),
                   validator: (val) =>
                       val.isEmpty ? 'Enter a valid phone number' : null,
                   onChanged: (val) {
