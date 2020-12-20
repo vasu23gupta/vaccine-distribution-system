@@ -11,7 +11,13 @@ class _FormScreenState extends State<FormScreen> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   String error = '';
-  TextEditingController addTagController = TextEditingController();
+  List<TextEditingController> textEditingController = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
 
   List<String> genders = ['Female', 'Male', 'Other'];
   List<String> yesno = ['Yes', 'No'];
@@ -31,7 +37,7 @@ class _FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('COVID 19 RECORD'),
+        title: Text('Vaccine Distribution System'),
         backgroundColor: Colors.green,
         elevation: 0.0,
       ),
@@ -47,20 +53,22 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  controller: textEditingController[0],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Name",
                   ),
-                  validator: (val) => val.isEmpty ? 'Enter a name' : null,
+                  validator: (val) => val.isEmpty ? 'Enter your name' : null,
                   onChanged: (val) {
                     setState(() => name = val);
                   },
                 ),
                 //gender
                 SizedBox(
-                  height: 10.0,
+                  height: 12.0,
                 ),
                 DropdownButton(
+                  isExpanded: true,
                   hint: Text('Gender'),
                   dropdownColor: Colors.white,
                   elevation: 1,
@@ -86,12 +94,21 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  controller: textEditingController[1],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Age",
                   ),
-                  validator: (val) => val.isEmpty ? 'Enter your age' : null,
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Enter your age';
+                    }
+                    if (int.tryParse(val) == null) {
+                      return 'Enter proper age';
+                    }
+                    return null;
+                  },
                   onChanged: (val) {
                     setState(() => age = int.parse(val));
                   },
@@ -101,12 +118,21 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  controller: textEditingController[2],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Pincode",
                   ),
-                  validator: (val) => val.isEmpty ? 'Enter pincode' : null,
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Enter your pincode';
+                    }
+                    if (int.tryParse(val) == null || val.length != 6) {
+                      return 'Enter proper pincode';
+                    }
+                    return null;
+                  },
                   onChanged: (val) {
                     setState(() => pincode = int.parse(val));
                   },
@@ -116,12 +142,18 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  controller: textEditingController[3],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "E-mail",
                   ),
-                  validator: (val) =>
-                      val.isEmpty ? 'Enter a valid email' : null,
+                  validator: (val) {
+                    return RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(val)
+                        ? null
+                        : "Enter valid email address";
+                  },
                   onChanged: (val) {
                     setState(() => email = val);
                   },
@@ -131,13 +163,21 @@ class _FormScreenState extends State<FormScreen> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  controller: textEditingController[4],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: "Phone",
+                    labelText: "Mobile Number",
                   ),
-                  validator: (val) =>
-                      val.isEmpty ? 'Enter a valid phone number' : null,
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Enter your Mobile number';
+                    }
+                    if (int.tryParse(val) == null || val.length != 10) {
+                      return 'Enter proper Mobile number';
+                    }
+                    return null;
+                  },
                   onChanged: (val) {
                     setState(() => phone = int.parse(val));
                   },
@@ -153,6 +193,7 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                 ),
                 DropdownButton(
+                  isExpanded: true,
                   hint: Text('Yes/No'),
                   value: medcondyesno,
                   onChanged: (value) {
@@ -187,6 +228,7 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                 ),
                 DropdownButton(
+                  isExpanded: true,
                   hint: Text('Yes/No'),
                   value: covideb4yesno,
                   onChanged: (value) {
@@ -236,6 +278,17 @@ class _FormScreenState extends State<FormScreen> {
                       print(covidB4);
                       ApplicationDatabaseService().updateUserData(name, gender,
                           age, pincode, medCond, email, phone, covidB4);
+                      setState(() {
+                        error = 'Form submitted!';
+                        for (var item in textEditingController) {
+                          item.clear();
+                        }
+                      });
+                    } else {
+                      setState(() {
+                        error =
+                            'Please check if all the fields have been filled correcly';
+                      });
                     }
                   },
                 ),

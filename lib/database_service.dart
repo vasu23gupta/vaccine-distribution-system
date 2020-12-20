@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ApplicationDatabaseService {
-  final String uid;
-  ApplicationDatabaseService({this.uid});
-
   //collection reference
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('applications');
@@ -18,7 +15,7 @@ class ApplicationDatabaseService {
     int phone,
     bool covidB4,
   ) async {
-    return await userCollection.doc(uid).set({
+    return await userCollection.doc().set({
       'name': name,
       'gender': gender,
       'age': age,
